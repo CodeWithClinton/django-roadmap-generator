@@ -1,0 +1,77 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+{% load socialaccount %}
+
+<link href="{% static 'css/users/auth.css' %}" rel="stylesheet" />
+
+
+<form action="" method="POST">
+
+    {% csrf_token %}
+    <h3>Create your account</h3>
+
+    
+    {% for field in form  %}
+
+    
+    {% if field.errors %}
+
+    <div class="mb-3">
+        {{field}}
+        <small>{{field.errors}}</small>
+    </div>
+        
+ 
+
+    {% else %}
+
+    
+    <div class="mb-3">
+        {{field}}
+    </div>
+
+
+    {% endif %}
+
+
+
+        
+        
+    {% endfor %}
+        
+
+    
+
+
+   
+
+    <button class="btn btn-primary" style="width: 100%">Create account</button>
+    <p style="text-align: center">Already have an account? <a href="">Login</a></p>
+
+    <div class="plan_b">
+        <small style="font-weight: bold">OR</small>
+    </div>
+    <hr>
+
+    {% comment %} <button type="button" class="btn btn-outline-dark btn-lg" style="width: 100%"> {% endcomment %}
+        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark btn-lg" style="width: 100%">
+            <i class="fa-brands fa-google"></i>
+            <span>Continue with Google</span>
+        </a>
+       
+    {% comment %} </button> {% endcomment %}
+   
+</form>
+
+    
+{% endblock content %}
+    

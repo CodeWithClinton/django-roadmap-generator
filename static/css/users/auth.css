@@ -1,0 +1,31 @@
+
+
+form{
+    width: 400px;
+    padding: 20px 20px 20px 20px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    margin: 30px auto;
+    border-radius: 10px;
+}
+
+form h3{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form input{
+    height: 45px;
+    font-size: 20px;
+}
+
+
+form .mb-3 small{
+    color: red
+}
+
+form .plan_b{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
