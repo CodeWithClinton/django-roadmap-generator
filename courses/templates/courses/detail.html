@@ -1,0 +1,162 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses/detail.css' %}" />
+
+<!-- Page content-->
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- Post content-->
+      <article>
+        <!-- Post header-->
+        <header class="mb-4">
+          <!-- Post title-->
+          <h1 class="fw-bolder mb-1">{{course.title}}!</h1>
+          <!-- Post meta content-->
+          {% comment %} <div class="text-muted fst-italic mb-2">
+            Posted on January 1, 2022 by Start Bootstrap
+          </div> {% endcomment %}
+          <!-- Post categories-->
+          <a class="badge bg-secondary text-decoration-none link-light"
+            href="#!">{{course.label}}</a>
+
+          <a class="badge bg-secondary text-decoration-none link-light"
+            href="#!">Freebies</a>
+        </header>
+
+        
+
+        <!-- Preview image figure-->
+        <figure class="mb-4">
+          {% comment %} <img
+            class="img-fluid rounded"
+            src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
+            alt="..."
+          /> {% endcomment %}
+        </figure>
+        <!-- Post content-->
+        <section class="mb-5">
+          <p class="fs-5 mb-4">
+            {{course.description | safe}}
+          </p>
+         
+        </section>
+      </article>
+
+
+      <div class="main-duration-container">
+        <div class="duration">
+          <p class="display-6">Pick your learning schedule</p>
+        </div>
+
+        <div class="duration-container">
+          
+          {% for schedule in schedules  %}
+
+          <div class="r-duration duration-daily">
+              <div class="duration-heading">
+                <h4>{{schedule.title}}</h4>
+              </div>
+
+              <div class="form-check-container">
+
+              
+              {% for mini_schedule in schedule.mini_schedule.all  %}
+
+              <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="flexRadioDefault"
+                    id="flexRadioDefault{{mini_schedule.id}}"
+                  />
+                  <label class="form-check-label" for="flexRadioDefault{{mini_schedule.id}}">
+                     {{mini_schedule.title}}
+                  </label>
+                </div>
+                  
+              {% endfor %}
+                  
+
+              
+
+                
+
+               
+
+              </div>
+            </div>
+              
+          {% endfor %}
+              
+          
+        </div>
+
+        <div class="duration-button">
+          <button class="g-button btn btn-primary" style="width: 100%" disabled>Generate Roadmap</button>
+        </div>
+      </div>
+
+
+      <!-- Comments section-->
+    </div>
+    <!-- Side widgets-->
+    <div class="col-lg-4">
+      <!-- Search widget-->
+      <div class="card mb-4">
+        <div class="card-header">Search</div>
+        <div class="card-body">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Enter search term..."
+              aria-label="Enter search term..."
+              aria-describedby="button-search"
+            />
+            <button class="btn btn-primary" id="button-search" type="button">
+              Go!
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Categories widget-->
+      <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <ul class="list-unstyled mb-0">
+                <li><a href="#!">Web Design</a></li>
+                <li><a href="#!">HTML</a></li>
+                <li><a href="#!">Freebies</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-6">
+              <ul class="list-unstyled mb-0">
+                <li><a href="#!">JavaScript</a></li>
+                <li><a href="#!">CSS</a></li>
+                <li><a href="#!">Tutorials</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Side widget-->
+      <div class="card mb-4">
+        <div class="card-header">Side Widget</div>
+        <div class="card-body">
+          You can put anything you want inside of these side widgets. They are
+          easy to use, and feature the Bootstrap 5 card component!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="{% static 'js/courses/detail.js' %}" />
+
+<script src="{% static 'js/courses/detail.js' %}"></script>
+
+{% endblock content %}

@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/courses/index.css' %}">
+
+
+   <!-- Header-->
+   <header class="py-5">
+    <div class="container px-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-6">
+                <div class="text-center my-5">
+                    <h1 class="display-5 fw-bolder text-white mb-2">Get ahead with the learning roadmap that suits you. 🚀</h1>
+                    <p class="lead text-white-80 mb-4">Navigating a hectic schedule? No problem – our comprehensive learning roadmap has you covered! 🌟📚</p>
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                        <a class="btn btn-outline-info btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                        <a class="btn btn-outline-light btn-lg px-4" href="#!">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- <header class="py-5">
+    <div class="container px-5">
+        <div class="row gx-5 align-items-center justify-content-center">
+            <div class="col-lg-8 col-xl-7 col-xxl-6">
+                <div class="my-5 text-center text-xl-start">
+                    <h1 class="display-5 fw-bolder text-black-90 mb-2">Get ahead with the learning roadmap that suits you. 🚀</h1>
+                    <p class="lead fw-normal text-black-80 mb-4" style="text-align: justify">
+                        Whether you're a novice or an expert, whether you're in high school or navigating a 9-5 job, L-earn is the ideal destination for you.
+                    </p> 
+                    <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="#features">Get Started</a>
+                        <a class="btn btn-outline-info btn-lg px-4" href="#!">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center">
+                <img class="img-fluid rounded-3 my-5" src="assets/iimg2.jpg" alt="..." />
+            </div>
+        </div>
+    </div>
+</header> -->
+<!-- Features section-->
+
+<!-- Testimonial section-->
+
+<!-- Blog preview section-->
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">Explore Inspiring Tech and Digital Courses</h2>
+                    <!-- <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p> -->
+                    
+                    
+                </div>
+                
+            </div>
+
+            <div class="category-container">
+                <button class="">python</button>
+                <button class="">Data Science</button>
+                <button class="">python</button>
+                <button class="">Data Science</button> 
+                <button class="">python</button>
+                <button class="">Data Science</button>
+            </div>
+        </div>
+        <div class="row gx-5">
+
+            
+            {% for course in courses %}
+
+
+            <div class="col-lg-4 mb-5">
+                <div class="card h-100 shadow border-0">
+                    <div class="card-img">
+                        <img src="{{course.thumbnail.url}}" alt="">
+                    </div>
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{course.label}}</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'courses:course' course.slug %}"><h5 class="card-title mb-3">{{course.title}}</h5></a>
+                        <p class="card-text mb-0">{{course.description|safe|truncatechars:"150"}}</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+                
+            {% endfor %}
+                
+
+           
+
+
+          
+
+            
+        <!-- Call to action-->
+        <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+            <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                <div class="mb-4 mb-xl-0">
+                    <div class="fs-3 fw-bold text-white">New products, delivered to you.</div>
+                    <div class="text-white-50">Sign up for our newsletter for the latest updates.</div>
+                </div>
+                <div class="ms-xl-4">
+                    <div class="input-group mb-2">
+                        <input class="form-control" type="text" placeholder="Email address..." aria-label="Email address..." aria-describedby="button-newsletter" />
+                        <button class="btn btn-outline-light" id="button-newsletter" type="button">Sign up</button>
+                    </div>
+                    <div class="small text-white-50">We care about privacy, and will never share your data.</div>
+                </div>
+            </div>
+        </aside>
+    </div>
+</section>
+</main>
+
+
+<script>
+
+    let btn = document.querySelector(".btn-outline-info")
+    console.log(btn)
+
+    btn.addEventListener("click", ask_openai)
+
+    function ask_openai(e){
+
+const url = '/';
+
+const data = {
+  key1: 'JavaScript roadmap for 1hr daily',
+};
+
+// Use the Fetch API to make a POST request
+fetch(url, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken
+  },
+  body: JSON.stringify(data)
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+  
+    return response.json();
+  })
+
+  .then(data => {
+    console.log('Success:', data);
+  })
+
+  .catch(error => {
+    console.error('Error:', error);
+  });
+
+
+    }
+
+</script>
+
+    
+{% endblock content %}
+    
