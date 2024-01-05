@@ -69,6 +69,9 @@
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault{{mini_schedule.id}}"
+                    data-new_id = {{mini_schedule.id}}
+                    data-sch_id={{mini_schedule.schedule.id}}
+                    data-course_id={{course.id}}
                   />
                   <label class="form-check-label" for="flexRadioDefault{{mini_schedule.id}}">
                      {{mini_schedule.title}}
@@ -96,6 +99,25 @@
           <button class="g-button btn btn-primary" style="width: 100%" disabled>Generate Roadmap</button>
         </div>
       </div>
+
+      <ul class="loader-container list-group list-group-horizontal-xxl">
+        <p class="placeholder-glow">
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+        </p>
+
+       
+      </>
 
 
       <!-- Comments section-->

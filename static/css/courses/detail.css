@@ -60,9 +60,13 @@
     opacity: 0.7;
 }
 
-.main-duration-container{
+.main-duration-container, .loader-container{
     padding: 10px 10px 10px 10px;
     border: 1px solid #dee2e6;
     margin: 20px auto;
     border-radius: 10px;
+}
+
+.loader-container{
+    display: none;
 }
