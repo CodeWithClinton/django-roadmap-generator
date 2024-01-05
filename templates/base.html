@@ -32,26 +32,89 @@
                 color: white !important;
             }
 
+            nav ul a{
+                color: white !important
+            }
+
+            nav ul li .dropdown-item:hover{
+                color: black !important
+            }
+
+            nav ul{
+                margin-left: auto;
+            }
+
+
            
         </style>
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
             <!-- Navigation-->
+
             <nav class="navbar navbar-expand-lg">
-                <div class="container px-5">
-                    <a class="navbar-brand" href="#!">Start Bootstrap</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Login</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Register</a></li>
-                            <!-- <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
-                        </ul> -->
-                    </div>
+                <div class="container">
+                    <a class="navbar-brand me-8" href="{% url 'courses:index' %}">L-earn</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                     
+    
+                      
+                      {% if request.user.is_authenticated %}
+    
+                      <li class="nav-item active dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" style="color: white" data-bs-toggle="dropdown" aria-expanded="false">
+                          Hi, {{request.user.username}}
+                        </a>
+                        <ul class="dropdown-menu bg-dark">
+                          <li><a class="dropdown-item" href="">Profile</a></li>
+                          <li><a class="dropdown-item" href="">Create Articles</a></li>
+                          <li><a class="dropdown-item" href="">Logout</a></li>
+                        </ul>
+                      </li>
+    
+                      
+    
+    
+    
+                      {% else %}
+    
+    
+                      <li class="nav-item me-3">
+                        <a href="{% url 'auth:register' %}">
+                        <button type="button" class="btn btn-outline-light">
+                           SignUp
+                        </button>
+                    </a>
+                      </li>
+    
+    
+                      <li class="nav-item me-3">
+                        <a href="">
+                        <button type="button" class="btn btn-outline-light">
+                           Login
+                        </button>
+                    </a>
+                      </li>
+    
+    
+    
+                        
+                      {% endif %}
+                        
+    
+                    
+                    
+                     
+                    </ul>
+                  </div>
                 </div>
-            </nav>
+              </nav>
+    
+
 
 
             

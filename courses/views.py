@@ -3,7 +3,9 @@ from decouple import config, Csv
 from openai import OpenAI
 from django.http import JsonResponse
 from .models import Course, Schedule, MiniSchedule
+from django.contrib.auth.decorators import login_required
 import json
+
 client = OpenAI(api_key=config("OPENAI_API_KEY"),)
 
 # Create your views here.
@@ -36,6 +38,8 @@ def detail(request, slug):
     context = {"course":course, "schedules": schedules}
     return render(request, "courses/detail.html", context)
 
+
+@login_required(login_url='auth:register')
 def ask_openai(request):
     if request.method == 'POST':
         data = json.loads(request.body)
@@ -70,6 +74,10 @@ def ask_openai(request):
 
         print(completion.choices[0].message.content) 
         new_output = completion.choices[0].message.content
+        
+        db_output = json.loads(new_output)
+        print(type(db_output))
+        print(type(new_output))
         
         return JsonResponse(new_output, safe=False)
     

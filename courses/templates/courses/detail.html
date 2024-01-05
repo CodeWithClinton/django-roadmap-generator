@@ -179,6 +179,11 @@
 
 <link rel="stylesheet" href="{% static 'js/courses/detail.js' %}" />
 
+<script>
+  let isAuthenticated = "{{request.user.is_authenticated}}"
+  let r_url = "{% url 'auth:register' %}"
+</script>
+
 <script src="{% static 'js/courses/detail.js' %}"></script>
 
 {% endblock content %}

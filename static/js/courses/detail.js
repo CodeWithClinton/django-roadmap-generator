@@ -37,56 +37,69 @@ function sending_prompt() {
   // console.log(mini_schedule_id)
   // console.log(schedule_id)
   // console.log(course_id)
+  if(isAuthenticated=="True"){
 
-  const url = "/ask_openai";
-  loader_container.style.display="block"
 
-  const data = {
-    mini_sch_id: mini_schedule_id,
-    sch_id: schedule_id,
-    c_id: course_id
-  };
-
-  // Use the Fetch API to make a POST request
-  fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-CSRFToken": csrftoken,
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      return response.json();
+    const url = "/ask_openai";
+    loader_container.style.display="block"
+  
+    const data = {
+      mini_sch_id: mini_schedule_id,
+      sch_id: schedule_id,
+      c_id: course_id
+    };
+  
+    // Use the Fetch API to make a POST request
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFToken": csrftoken,
+      },
+      body: JSON.stringify(data),
     })
-
-    .then((data) => {
-      learning_roadmap = JSON.parse(data);
-      
-      console.log(learning_roadmap)
-      loader_container.innerHTML = ""
-      loader_container.innerHTML = `
-        <li class="list-group-item"><strong>Title:</strong> <span>${learning_roadmap.title}</span> </li>
-        <li class="list-group-item"><strong>Duration:</strong> <span>${learning_roadmap.duration}</span></li>
-        <li class="list-group-item"><strong>Frequency:</strong> <span>${learning_roadmap.frequency}</span></li>
-        <li class="list-group-item"><strong>Roadmap:</strong> <span></span></li>
-      `
-
-      learning_roadmap.learning_roadmap.forEach(topic => {
-        loader_container.innerHTML += `
-
-        <li class="list-group-item">-- ${topic}</li>
-       
-        `
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+  
+        return response.json();
       })
+  
+      .then((data) => {
+        learning_roadmap = JSON.parse(data);
+        
+        console.log(learning_roadmap)
+        loader_container.innerHTML = ""
+        loader_container.innerHTML = `
+          <li class="list-group-item"><strong>Title:</strong> <span>${learning_roadmap.title}</span> </li>
+          <li class="list-group-item"><strong>Duration:</strong> <span>${learning_roadmap.duration}</span></li>
+          <li class="list-group-item"><strong>Frequency:</strong> <span>${learning_roadmap.frequency}</span></li>
+          <li class="list-group-item"><strong>Roadmap:</strong> <span></span></li>
+        `
+  
+        learning_roadmap.learning_roadmap.forEach(topic => {
+          loader_container.innerHTML += `
+  
+          <li class="list-group-item">-- ${topic}</li>
+         
+          `
+        })
+  
+      })
+  
+      .catch((error) => {
+        console.error("Error:", error);
+      });
 
-    })
 
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  }
+
+  else{
+    location.href = r_url
+  }
+
+ 
 }
+
+console.log(isAuthenticated)

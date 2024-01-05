@@ -175,8 +175,8 @@ AUTHENTICATION_BACKENDS = [
     # ...
 ]
 
-LOGOUT_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = 'auth:index'
+LOGOUT_REDIRECT_URL = 'courses:index'
+LOGIN_REDIRECT_URL = 'courses:index'
 
 # client_id=699670375718-bt525bh2de1trbavl8i6400fsvknsaej.apps.googleusercontent.com
 # client_secret=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
