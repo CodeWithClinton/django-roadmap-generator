@@ -100,6 +100,27 @@
         </div>
       </div>
 
+
+      
+      {% if user_course %}
+
+      <ul class="loader-container-main list-group list-group-horizontal-xxl" style="margin-bottom:10px">
+        <li class="list-group-item"><strong>Title: </strong><span>Comprehensive {{user_course.course.label}} roadmap</span></li>
+        <li class="list-group-item"><strong>Duration: </strong><span>{{user_course.mini_schedule.title}}</span></li>
+        <li class="list-group-item"><strong>Frequency: </strong><span>{{user_course.schedule.title}}</span></li>
+        <li class="list-group-item"><strong>Roadmap:</strong></li>
+        
+        {% for r in user_course.roadmap.all %}
+        <li class="list-group-item">--{{r.title}}</li>
+        {% endfor %}
+          
+      </ul>
+        
+      {% endif %}
+     
+        
+
+
       <ul class="loader-container list-group list-group-horizontal-xxl">
         <p class="placeholder-glow">
           <span class="placeholder col-12"></span>
@@ -117,7 +138,7 @@
         </p>
 
        
-      </>
+      </ul>
 
 
       <!-- Comments section-->

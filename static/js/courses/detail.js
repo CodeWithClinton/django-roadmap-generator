@@ -2,6 +2,8 @@ let radios = document.querySelectorAll(".form-check-input");
 let duration_box = document.querySelectorAll(".r-duration");
 let generate_button = document.querySelector(".g-button");
 let loader_container = document.querySelector(".loader-container")
+let loader_container_main = document.querySelector(".loader-container-main")
+
 
 // getting prompts elements
 let mini_schedule_id;
@@ -42,6 +44,24 @@ function sending_prompt() {
 
     const url = "/ask_openai";
     loader_container.style.display="block"
+    loader_container_main.style.display = "none"
+    loader_container.innerHTML = `
+    <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+          <span class="placeholder col-12"></span>
+    `
+
+    generate_button.disabled = true;
+    generate_button.style.opacity = "0.6";
   
     const data = {
       mini_sch_id: mini_schedule_id,
@@ -69,7 +89,11 @@ function sending_prompt() {
       .then((data) => {
         learning_roadmap = JSON.parse(data);
         
-        console.log(learning_roadmap)
+        console.log(JSON.stringify(learning_roadmap))
+
+        generate_button.disabled = false;
+        generate_button.style.opacity = "1";
+
         loader_container.innerHTML = ""
         loader_container.innerHTML = `
           <li class="list-group-item"><strong>Title:</strong> <span>${learning_roadmap.title}</span> </li>
