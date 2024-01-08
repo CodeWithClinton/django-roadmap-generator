@@ -41,13 +41,33 @@ class UserCourse(models.Model):
     
     
 
-
 class Roadmap(models.Model):
     title = models.CharField(max_length=25, blank=True, null=True)
     user_course = models.ForeignKey(UserCourse, on_delete=models.CASCADE, related_name="roadmap", blank=True, null=True)
     
     def __str__(self):
         return f"{self.user_course.course.title} - {self.title}"
+  
+    
+class Quiz(models.Model):
+    question = models.CharField(max_length=100)
+    user_course = models.ForeignKey(UserCourse, on_delete=models.CASCADE, related_name="quiz", blank=True, null=True)
+    answer = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return f"{self.user_course.course.title} - {self.question}"
+    
+    
+
+class QuizOption(models.Model):
+    option = models.CharField(max_length=25)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.quiz.question} - {self.option}"
+    
+    
+    
 
 
     

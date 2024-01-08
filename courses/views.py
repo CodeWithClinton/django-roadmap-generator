@@ -59,7 +59,7 @@ def ask_openai(request):
         # print(schedule)
         # print(mini_schedule)
         
-        # print(f"{course_label} roadmap for {mini_schedule} {schedule}")
+        print(f"{course_label} roadmap for {mini_schedule} {schedule}")
         
         completion = client.chat.completions.create(
             model="gpt-3.5-turbo-1106",
@@ -86,6 +86,9 @@ def ask_openai(request):
         if db_output:
             try:
                 user_course = UserCourse.objects.get(user=request.user, course=course)
+                user_course.schedule=schedule 
+                user_course.mini_schedule=mini_schedule 
+                user_course.save()
                 roadmap = Roadmap.objects.filter(user_course=user_course)
                 
                 if roadmap.exists():

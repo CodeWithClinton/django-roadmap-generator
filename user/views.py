@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from courses.models import UserCourse
 # Create your views here.
 
 def index(request):
@@ -34,3 +35,10 @@ def sign_up(request):
 
 def sign_out(request):
     logout(request)
+    
+@login_required(login_url='auth:register')
+def profile(request):
+    user = request.user
+    user_courses = UserCourse.objects.filter(user=user)
+    context = {"user": user, "u_courses": user_courses}
+    return render(request, "user/profile.html", context)

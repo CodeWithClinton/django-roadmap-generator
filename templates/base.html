@@ -70,7 +70,7 @@
                           Hi, {{request.user.username}}
                         </a>
                         <ul class="dropdown-menu bg-dark">
-                          <li><a class="dropdown-item" href="">Profile</a></li>
+                          <li><a class="dropdown-item" href="{% url 'auth:profile' %}">Profile</a></li>
                           <li><a class="dropdown-item" href="">Create Articles</a></li>
                           <li><a class="dropdown-item" href="">Logout</a></li>
                         </ul>
