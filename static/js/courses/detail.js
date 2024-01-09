@@ -2,7 +2,7 @@ let radios = document.querySelectorAll(".form-check-input");
 let duration_box = document.querySelectorAll(".r-duration");
 let generate_button = document.querySelector(".g-button");
 let loader_container = document.querySelector(".loader-container")
-let loader_container_main = document.querySelector(".loader-container-main")
+
 
 
 // getting prompts elements
@@ -44,7 +44,14 @@ function sending_prompt() {
 
     const url = "/ask_openai";
     loader_container.style.display="block"
-    loader_container_main.style.display = "none"
+
+    if(r_num >= 1){
+      let loader_container_main = document.querySelector(".loader-container-main")
+      loader_container_main.style.display = "none"
+
+    }
+
+    
     loader_container.innerHTML = `
     <span class="placeholder col-12"></span>
           <span class="placeholder col-12"></span>

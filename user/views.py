@@ -3,7 +3,9 @@ from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from courses.models import UserCourse
+from courses.models import UserCourse, Quiz, QuizOption
+from django.http import JsonResponse
+import json
 # Create your views here.
 
 def index(request):
@@ -42,3 +44,24 @@ def profile(request):
     user_courses = UserCourse.objects.filter(user=user)
     context = {"user": user, "u_courses": user_courses}
     return render(request, "user/profile.html", context)
+
+
+@login_required(login_url='auth:register')
+def quiz_profile(request, pk):
+    user = request.user
+    user_course = UserCourse.objects.get(id=pk)
+    context = {"user": user, "q_course": user_course}
+    return render(request, "user/quiz_profile.html", context)
+
+
+def fetch_quiz(request):
+    data = json.loads(request.body)
+    user_course_id = data['user_course_Id']
+    user_course = UserCourse.objects.get(id=user_course_id)
+    quizes = Quiz.objects.filter(user_course=user_course)
+    new_quizzes = [
+    {"id":quiz.id, "question": quiz.question, "options": [option.option for option in quiz.options.all()]}
+    for quiz in quizes
+    ]
+    print(new_quizzes)
+    return JsonResponse(new_quizzes, safe=False)

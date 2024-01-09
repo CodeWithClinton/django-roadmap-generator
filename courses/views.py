@@ -2,7 +2,7 @@ from django.shortcuts import render
 from decouple import config, Csv
 from openai import OpenAI
 from django.http import JsonResponse
-from .models import Course, Schedule, MiniSchedule, UserCourse, Roadmap
+from .models import Course, Schedule, MiniSchedule, UserCourse, Roadmap, Quiz, QuizOption
 from django.contrib.auth.decorators import login_required
 import json
 
@@ -35,10 +35,15 @@ def index(request):
 def detail(request, slug):
     course = Course.objects.get(slug=slug)
     user_course=""
+    roadmap_num = 0
     if request.user.is_authenticated:
-        user_course = UserCourse.objects.get(user=request.user, course=course)
+        try:
+            user_course = UserCourse.objects.get(user=request.user, course=course)
+            roadmap_num = Roadmap.objects.filter(user_course=user_course).count()
+        except UserCourse.DoesNotExist:
+            pass   
     schedules = Schedule.objects.all()
-    context = {"course":course, "schedules": schedules, "user_course":user_course}
+    context = {"course":course, "schedules": schedules, "user_course":user_course, "r_num": roadmap_num}
     return render(request, "courses/detail.html", context)
 
 
@@ -70,7 +75,7 @@ def ask_openai(request):
                  You are a helpful assistant designed to output JSON, 
                  JSON output should contain title, 
                  duration, frequency, learning_roadmap, quiz. learning_roadmap should be an array of topics to learn,
-                 quiz should be an array of object consisiting of questions, options and answer.
+                 quiz should be an array of object consisiting of 7 questions, options and answer.
                  """
                  },
                 {"role": "user", "content": f"comprehensive {course_label} roadmap for {mini_schedule} {schedule} every {schedule}"}
@@ -90,18 +95,46 @@ def ask_openai(request):
                 user_course.mini_schedule=mini_schedule 
                 user_course.save()
                 roadmap = Roadmap.objects.filter(user_course=user_course)
+                quiz = Quiz.objects.filter(user_course=user_course)
                 
                 if roadmap.exists():
                     roadmap.delete()
+                    
+                
+                if quiz.exists():
+                    quiz.delete()
 
                 new_roadmap = [Roadmap(title=r, user_course=user_course) for r in db_output["learning_roadmap"]]
                 Roadmap.objects.bulk_create(new_roadmap)
+                
+                # creating the quiz questions
+                user_quizes = db_output["quiz"]
+                
+                for u in user_quizes:
+                    user_quiz = Quiz.objects.create(question=u["question"], user_course=user_course, answer=u["answer"])
+                    for option in u["options"]:
+                        QuizOption.objects.create(option=option, quiz=user_quiz)
+                        
+                
 
             except UserCourse.DoesNotExist:
                 user_course = UserCourse.objects.create(user=request.user, course=course, schedule=schedule, mini_schedule=mini_schedule)
 
                 roadmap = [Roadmap(title=r, user_course=user_course) for r in db_output["learning_roadmap"]]
                 Roadmap.objects.bulk_create(roadmap)
+                
+                
+                 # creating the quiz questions
+                user_quizes = db_output["quiz"]
+                
+                for u in user_quizes:
+                    user_quiz = Quiz.objects.create(question=u["question"], user_course=user_course, answer=u["answer"])
+                    for option in u["options"]:
+                        QuizOption.objects.create(option=option, quiz=user_quiz)
+                        
+                
+                
+                
 
             # except Exception as e:
             #     # Handle specific exceptions (e.g., DatabaseError, IntegrityError) and log or print the error for debugging

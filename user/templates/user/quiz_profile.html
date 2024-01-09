@@ -77,37 +77,43 @@
             </div>
             <div class="col-md-8">
               <div class="card mb-3">
-                <div class="card-body">
-                    <div class="row"><h4 class="">Roadmapped courses</h4></div>
-                    <br>
-                  <div class="row">
-                    
-                    {% for u_course in u_courses %}
-                    <div class="col-lg-6 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <div class="card-img">
-                                <img src="{{u_course.course.thumbnail.url}}" alt="">
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{u_course.course.label}}</div>
-                                <h5 class="card-title mb-3">{{u_course.course.title}}</h5>
-                                {% comment %} <p class="card-text mb-0">{{course.description|safe|truncatechars:"150"}}</p> {% endcomment %}
-
-                                <a href="{% url 'courses:course' u_course.course.slug %}" class="btn btn-primary">Regenerate Roadmap</a>
-                                <a href="{% url 'auth:q-profile' u_course.id  %}" class="btn btn-success">Take Quiz</a>
-                            </div>
-
-                            
-                            
-                        </div>
+                <div class="card-body quiz-container">
+                    <div class="row">
+                        <h4 class=""><strong>{{q_course.course.title}} - Quiz</strong></h4>
                     </div>
-                    {% endfor %}
-                        
+                
+                     
+                  <div class="row">
+                    <p class='fs-4'>Do well to score at least 80% to proceed to the next stage.</p>                    
+                    <button class="btn btn-primary fetch-btn" data-ucourse="{{q_course.id}}">Start Quiz</button>
                   </div>
+                  <br>
+
+
+                  {% comment %} Quiz section {% endcomment %}
+
+                  {% comment %} <div class="card mb-3">
+                    <div class="card-body">
+                        <p class='fs-5'>What is the full meaning of DOM</p>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1" style="font-size:18px">
+                              Default radio
+                            </label>
+                          </div>
+
+                          
+
+
+                    </div>
                     
-                 
+                  </div> {% endcomment %}
+                
+                
                  
                 </div>
+                <button class="btn btn-primary sub-btn" style="display:none">Submit Quiz</button>
               </div>
 
 
@@ -175,5 +181,10 @@
 
         </div>
     </div>
+    <script>
+        let url = "{% url 'auth:fetch-quiz' %}"
+    </script>
+
+    <script src="{% static 'js/courses/quiz_profile.js' %}"></script>
 
 {% endblock content %}

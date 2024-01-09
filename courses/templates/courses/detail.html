@@ -198,11 +198,11 @@
 </div>
 
 
-<link rel="stylesheet" href="{% static 'js/courses/detail.js' %}" />
 
 <script>
   let isAuthenticated = "{{request.user.is_authenticated}}"
   let r_url = "{% url 'auth:register' %}"
+  let r_num = "{{r_num}}"
 </script>
 
 <script src="{% static 'js/courses/detail.js' %}"></script>

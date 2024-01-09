@@ -61,7 +61,7 @@ class Quiz(models.Model):
 
 class QuizOption(models.Model):
     option = models.CharField(max_length=25)
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="options")
     
     def __str__(self):
         return f"{self.quiz.question} - {self.option}"
