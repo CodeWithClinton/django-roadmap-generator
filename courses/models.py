@@ -66,6 +66,18 @@ class QuizOption(models.Model):
     def __str__(self):
         return f"{self.quiz.question} - {self.option}"
     
+
+class UserScore(models.Model):
+    score = models.IntegerField(default=0)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="score")
+    user_course = models.ForeignKey(UserCourse, on_delete=models.CASCADE)
+    created = models.DateField(auto_now_add=True, blank=True, null=True)
+    updated = models.DateField(auto_now=True, blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.user_course.course.title} - {self.score}"
+    
+    
     
     
 

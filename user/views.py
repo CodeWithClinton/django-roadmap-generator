@@ -3,7 +3,7 @@ from .forms import RegisterForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from courses.models import UserCourse, Quiz, QuizOption
+from courses.models import UserCourse, Quiz, QuizOption, UserScore
 from django.http import JsonResponse
 import json
 # Create your views here.
@@ -50,7 +50,39 @@ def profile(request):
 def quiz_profile(request, pk):
     user = request.user
     user_course = UserCourse.objects.get(id=pk)
-    context = {"user": user, "q_course": user_course}
+    user_score=""
+    try:
+        user_score = UserScore.objects.get(user=user, user_course=user_course)
+    except UserScore.DoesNotExist:
+        user_score=""
+    quiz = Quiz.objects.filter(user_course=user_course)
+    
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        score = int(data["user_score"])
+        try:
+            user_score = UserScore.objects.get(user=user, user_course=user_course)
+            if user_score:
+                user_score.score = score 
+                user_score.save()
+            
+        except UserScore.DoesNotExist:
+            user_score = UserScore.objects.create(user_course=user_course, user=user, score=score)
+        
+        return JsonResponse(score, safe=False)
+ 
+    else:
+    
+        context = {"user": user, "q_course": user_course, "quiz":quiz, "user_score":user_score}
+        return render(request, "user/quiz_profile.html", context)
+
+
+
+def quiz_score(request, pk):
+    user = request.user
+    user_course = UserCourse.objects.get(id=pk)
+    user_score = UserScore.objects.get(user=user, user_course=user_course)
+    context = {"user": user, "user_course": user_course, "user_score":user_score}
     return render(request, "user/quiz_profile.html", context)
 
 

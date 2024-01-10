@@ -75,46 +75,127 @@
                 </ul>
               </div>
             </div>
+
+
             <div class="col-md-8">
               <div class="card mb-3">
                 <div class="card-body quiz-container">
                     <div class="row">
                         <h4 class=""><strong>{{q_course.course.title}} - Quiz</strong></h4>
                     </div>
-                
-                     
-                  <div class="row">
-                    <p class='fs-4'>Do well to score at least 80% to proceed to the next stage.</p>                    
-                    <button class="btn btn-primary fetch-btn" data-ucourse="{{q_course.id}}">Start Quiz</button>
-                  </div>
-                  <br>
 
 
-                  {% comment %} Quiz section {% endcomment %}
+                    
+                    {% if user_score %}
 
-                  {% comment %} <div class="card mb-3">
-                    <div class="card-body">
-                        <p class='fs-5'>What is the full meaning of DOM</p>
+                    
+                    
+                      
 
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1" style="font-size:18px">
-                              Default radio
+                    <div class="card mb-3">
+                      <div class="card-body">
+
+
+                        {% if user_score.score >= 80 %}
+
+                        <div class="alert alert-success" role="alert">
+                          <h4 class="alert-heading">Congratulations!!</h4>
+                          <p>You scored <strong>{{user_score.score}}%</strong> in the Quiz - You are now qualified for the next phase. </p>
+                          <hr>
+                          <p class="mb-0">{{user_score.user.username}}, see you in the next phase.</p>
+                        </div>
+
+
+                        {% else %}
+                        <div class="alert alert-warning" role="alert">
+                          <h4 class="alert-heading">Well done!</h4>
+                          <p>You scored <strong>{{user_score.score}}%</strong> in the Quiz and that isn't up to the 80% cutoff mark  - Try again in the next 30days. </p>
+                          <hr>
+                          <p class="mb-0">{{user_score.user.username}}, we wish you success in your next try.</p>
+                        </div>
+
+
+                      
+                        {% endif %}
+
+                        
+
+                        
+
+
+                      </div>
+                    </div>
+
+
+                    {% else %}
+
+                    {% comment %} <div class="row">
+                      <p class='fs-4'>Do well to score at least 80% to proceed to the next stage.</p>                    
+                    </div>
+                    <br> {% endcomment %}
+  
+                    {% for q in quiz  %}
+  
+                    <div class="card mb-3">
+                      <div class="card-body">
+                          <p class='fs-5'>{{q.question}}</p>
+  
+                          
+                          {% for option in q.options.all  %}
+                          
+                          <div class="form-check">
+                            <input class="form-check-input" type="radio" name="{{option.quiz.question}}" 
+                            value="{{option.option}}" id="{{option.option}}" data-newn="{{option.quiz.answer}}">
+                            <label class="form-check-label" for="{{option.option}}" style="font-size:18px">
+                              {{option.option}}
                             </label>
                           </div>
-
+                            
+                          {% endfor %}
+                            
+  
                           
-
-
+  
+                            
+  
+  
+                      </div>
+                      
                     </div>
+                      
+                    {% endfor %}
+                      
+  
                     
-                  </div> {% endcomment %}
-                
-                
-                 
+                  
+                    <button class="btn btn-primary sub-btn" class="width:100%">Submit Quiz</button>
+  
+                  {% comment %} </form> {% endcomment %}
+                   
+                  </div>
+  
+                  
+                  
                 </div>
-                <button class="btn btn-primary sub-btn" style="display:none">Submit Quiz</button>
-              </div>
+  
+
+
+
+
+
+                      
+                    {% endif %}
+                      
+
+                    
+  
+                
+                     
+                  
+              
+
+            
+            
 
 
               <div class="row gutters-sm">
@@ -174,15 +255,17 @@
                 </div>
               </div>
 
-
+              
 
             </div>
           </div>
 
         </div>
     </div>
+  </div>
+</div>
     <script>
-        let url = "{% url 'auth:fetch-quiz' %}"
+        let url = "{% url 'auth:q-profile' q_course.id  %}"
     </script>
 
     <script src="{% static 'js/courses/quiz_profile.js' %}"></script>
