@@ -1,0 +1,88 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+
+<style>
+    form{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px !important;
+        width: 600px !important
+    }
+
+    form label{
+        font-weight: bold
+    }
+
+</style>
+
+{% load socialaccount %}
+
+<link href="{% static 'css/users/auth.css' %}" rel="stylesheet" />
+
+
+
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <h3>Tell us more about you!</h3>
+
+
+
+  
+
+    <div class="row">
+        
+        {% for field in form %}
+
+        <div class="col-md-6">
+
+            
+            {% if field.errors %}
+
+            <div class="mb-3">
+                <label class="form-label fw-2">{{field.label}}</label>
+                {{field}}
+                <small>{{field.errors}}</small>
+            </div>
+
+            {% else %}
+
+            <div class="mb-3">
+                <label class="form-label fw-2">{{field.label}}</label>
+                {{field}}
+                <small>{{field.errors}}</small>
+            </div>
+                
+            {% endif %}
+                
+
+        </div>
+            
+        {% endfor %}
+            
+    </div>
+        
+
+    
+
+
+   
+
+    <button class="btn btn-primary" style="width: 100%">Update profile</button>
+
+  
+   
+</form>
+
+    
+{% endblock content %}
+    

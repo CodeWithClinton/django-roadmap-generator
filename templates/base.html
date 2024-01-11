@@ -72,7 +72,7 @@
                         <ul class="dropdown-menu bg-dark">
                           <li><a class="dropdown-item" href="{% url 'auth:profile' %}">Profile</a></li>
                           <li><a class="dropdown-item" href="">Create Articles</a></li>
-                          <li><a class="dropdown-item" href="">Logout</a></li>
+                          <li><a class="dropdown-item" href="{% url 'auth:logout' %}">Logout</a></li>
                         </ul>
                       </li>
     
@@ -113,6 +113,19 @@
                   </div>
                 </div>
               </nav>
+
+              <div class="container">
+                {% for message in messages %}
+
+                <br>
+              <div class="alert alert-{{message.tags}}" role="alert">
+                {{message}}
+              </div>
+                
+              {% endfor %}
+              </div>
+              
+                
     
 
 

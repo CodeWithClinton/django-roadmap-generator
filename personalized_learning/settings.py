@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'django_summernote',
     # custom apps
-    'user',
+    'user.apps.UserConfig',
     'courses'
 ]
 

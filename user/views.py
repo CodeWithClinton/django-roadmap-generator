@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
-from .forms import RegisterForm
+from .forms import RegisterForm, UpdateProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from courses.models import UserCourse, Quiz, QuizOption, UserScore
 from django.http import JsonResponse
+from .models import Profile
+from django.contrib.auth import get_user_model
 import json
 # Create your views here.
 
@@ -35,15 +37,41 @@ def sign_up(request):
     return render(request, "user/signup.html", context)
 
 
+@login_required(login_url='auth:register')
+def update_profile(request):
+    user = request.user 
+    profile = Profile.objects.get(user=user)
+    form = UpdateProfileForm(instance=profile)
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Profile updated successfully!")
+            return redirect("auth:profile")
+    context = {"form": form, "profile": profile}
+    return render(request, "user/update_profile.html", context)
+    
+
+
+
 def sign_out(request):
     logout(request)
+    return redirect("courses:index")
     
 @login_required(login_url='auth:register')
 def profile(request):
     user = request.user
+    profile = Profile.objects.get(user=user)
     user_courses = UserCourse.objects.filter(user=user)
-    context = {"user": user, "u_courses": user_courses}
+    context = {"user": user, "u_courses": user_courses, "profile": profile}
     return render(request, "user/profile.html", context)
+
+
+def profile_list(request):
+    user = get_user_model()
+    all_user = user.objects.filter(score__score__gte=80)
+    context = {"all_users": all_user}
+    return render(request, "user/profile_list.html", context)
 
 
 @login_required(login_url='auth:register')
@@ -61,8 +89,9 @@ def quiz_profile(request, pk):
         data = json.loads(request.body)
         score = int(data["user_score"])
         try:
-            user_score = UserScore.objects.get(user=user, user_course=user_course)
+            user_score = UserScore.objects.get(user=user)
             if user_score:
+                user_score.user_course=user_course
                 user_score.score = score 
                 user_score.save()
             

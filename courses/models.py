@@ -67,7 +67,7 @@ class QuizOption(models.Model):
         return f"{self.quiz.question} - {self.option}"
     
 
-class UserScore(models.Model):
+class UserScore(models.Model): 
     score = models.IntegerField(default=0)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="score")
     user_course = models.ForeignKey(UserCourse, on_delete=models.CASCADE)

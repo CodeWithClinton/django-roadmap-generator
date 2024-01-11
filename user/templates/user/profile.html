@@ -19,6 +19,26 @@
         overflow: hidden;
         border-radius: 10px;
     }
+
+    .social-link{
+      width: 100px;
+      height: 40px;
+      border-radius: 10px;
+      margin: 10px auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    .social-link .fa-brands{
+      font-size: 25px;
+      cursor: pointer
+    }
+
+    .social-link a{
+      color: black
+    }
+
 </style>
 
 <div class="container" style="margin-top:50px">
@@ -39,12 +59,38 @@
               <div class="card">
                 <div class="card-body">
                   <div class="d-flex flex-column align-items-center text-center">
+                    
+                    {% if profile.image %}
+                    <img src="{{profile.image.url}}" alt="" class="rounded-circle" width="150">
+                    {% else %}
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    {% endif %}
+                      
+                    
                     <div class="mt-3">
-                      <h4>{{user.username}}</h4>
-                      <p class="text-secondary mb-1">Full Stack Developer</p>
-                      <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
-                      <button class="btn btn-primary">Follow</button>
+                      <h4>~{{user.username}}</h4>
+                      <p class=" mb-1">{{profile.profession}}</p>
+                      <p class="font-size-sm fw-bold">{{profile.first_name}} {{profile.last_name}}</p>
+                      <p class="font-size-sm">{{profile.bio}}</p>
+                      <div class="social-link">
+                        
+                        {% if profile.linkedin %}
+                        <a href="" class="fa-brands fa-linkedin"></a>
+                        {% endif %}
+
+                        {% if profile.twitter %}
+                        <a href="" class="fa-brands fa-square-x-twitter"></a>
+                        {% endif %}
+
+                        {% if profile.github %}
+                        <a href="" class="fa-brands fa-github"></a>
+                        {% endif %}
+                          
+                        
+                        
+                        
+                      </div>
+                      <a href="{% url 'auth:update-profile' %}" class="btn btn-primary">Update</a>
                       <button class="btn btn-outline-primary">Message</button>
                     </div>
                   </div>
@@ -78,13 +124,12 @@
             <div class="col-md-8">
               <div class="card mb-3">
                 <div class="card-body">
-                    <div class="row"><h4 class="">Roadmapped courses</h4></div>
-                    <br>
+                   
                   <div class="row">
-                    
+                    <p class="fs-4" style="font-weight:500px">Roadmap - Course(s)</p>
                     {% for u_course in u_courses %}
                     <div class="col-lg-6 mb-5">
-                        <div class="card h-100 shadow border-0">
+                        <div class="card h-100 shadow border-0" style>
                             <div class="card-img">
                                 <img src="{{u_course.course.thumbnail.url}}" alt="">
                             </div>

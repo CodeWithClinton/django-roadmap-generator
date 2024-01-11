@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+    header{
+        background-color: #041E42 !important;
+        color: white !important
+    }
+</style>
+
+ <!-- Header-->
+ <header class="py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Shop in style</h1>
+            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+        </div>
+    </div>
+</header>
+
+<section class="py-5">
+    <div class="container px-5 my-5">
+        <div class="row gx-5 justify-content-center">
+            {% comment %} <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">From our blog</h2>
+                    <p class="lead fw-normal text-muted mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eaque fugit ratione dicta mollitia. Officiis ad.</p>
+                </div>
+            </div> {% endcomment %}
+        </div>
+        <div class="row gx-5">
+            
+            {% for user in all_users  %}
+
+            <div class="col-lg-4 mb-5">
+                <div class="card shadow border-0">
+                    <div class="card-body p-4">
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">Tech</div>
+                        <a class="text-decoration-none link-dark stretched-link" href="#!"><h5 class="card-title mb-3">{{user.profile.profession}}</h5></a>
+                        <p class="card-text mb-0">{{user.profile.bio}}</p>
+                    </div>
+                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                        <div class="d-flex align-items-end justify-content-between">
+                            <div class="d-flex align-items-center">
+                                
+                                {% if user.profile.image %}
+                                <img class="rounded-circle me-3" src="{{user.profile.image.url}}" alt="..." width="40" />
+                                {% else %}
+                                <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                {% endif %}
+                                    
+    
+                                <div class="">
+                                    <div class="fw-bold">{{user.profile.first_name}} {{user.profile.last_name}}</div>
+                                    <div class="text-muted">@{{user.profile.username}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+                
+            {% endfor %}
+                
+            
+            
+        </div>
+    </div>
+
+
+    
+{% endblock content %}
+    
