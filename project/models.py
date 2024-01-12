@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 class Project(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField(upload_to='project_images/')

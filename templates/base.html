@@ -19,34 +19,44 @@
         <link href="{% static 'css/global.css' %}" rel="stylesheet" />
         {% comment %} <link href="css/custom.css" rel="stylesheet" /> {% endcomment %}
         <style>
-            nav{
+            #nav{
                 background-color: #041E42 !important;
                 color: white !important
             }
 
-            nav div a{
+            #nav div a{
                 color: white !important;
             }
 
-            nav ul li a{
+            #nav ul li a{
                 color: white !important;
             }
 
-            nav ul a{
+            #nav ul a{
                 color: white !important
             }
 
-            nav ul li .dropdown-item:hover{
+            #nav ul li .dropdown-item:hover{
                 color: black !important
             }
 
-            nav ul{
+            #nav ul{
                 margin-left: auto;
             }
 
             footer{
               background-color: #001c40 !important
+            } 
+
+            footer a{
+              text-decoration: none
             }
+
+            footer .fa-solid, footer .fa-brands{
+              font-size: 20px;
+              margin: 0px 10px;
+            }
+        
 
            
         </style>
@@ -55,7 +65,7 @@
         <main class="flex-shrink-0">
             <!-- Navigation-->
 
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-lg" id="nav">
                 <div class="container">
                     <a class="navbar-brand me-8" href="{% url 'courses:index' %}">L-earn</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -63,6 +73,11 @@
                   </button>
                   <div class="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav">
+
+                      <li class="nav-item me-3">
+                        <a class="nav-link" href="{% url 'auth:profile-list' %}">Top profiles</a>
+                      </li>
+    
                      
     
                       
@@ -84,7 +99,8 @@
     
     
                       {% else %}
-    
+
+                     
     
                       <li class="nav-item me-3">
                         <a href="{% url 'auth:register' %}">
@@ -146,39 +162,73 @@
 
         
          <!-- Footer-->
-         <footer class="text-light py-4">
-            <div class="container">
-              <div class="row">
-                
-                <!-- Column 1 -->
-                <div class="col-md-3 mb-3">
-                  <h5>Contact Us</h5>
-                  <p>Email: contact@example.com</p>
-                  <p>Phone: +1 123-456-7890</p>
-                </div>
-                
-                <!-- Column 2 -->
-                <div class="col-md-3 mb-3">
-                  <h5>About Us</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                
-                <!-- Column 3 -->
-                <div class="col-md-3 mb-3">
-                  <h5>Services</h5>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
-                
-                <!-- Column 4 -->
-                <div class="col-md-3 mb-3">
-                  <h5>Follow Us</h5>
-                  <p>Stay connected on social media:</p>
-                  <p>Facebook | Twitter | Instagram</p>
-                </div>
-                
+        
+         <footer class="py-5">
+          <div class="container">
+            <div class="row">
+              <!-- Navigation Links -->
+              <div class="col-lg-3 col-md-6">
+                <h5 class="text-white">Quick Links</h5>
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-white">Home</a></li>
+                  <li><a href="#" class="text-white">About</a></li>
+                  <li><a href="#" class="text-white">Tech Journeys</a></li>
+                  <li><a href="#" class="text-white">Contact</a></li>
+                  <li><a href="#" class="text-white">Tech Journeys</a></li>
+                  <li><a href="#" class="text-white">Contact</a></li>
+                  <li><a href="#" class="text-white">Tech Journeys</a></li>
+                  <li><a href="#" class="text-white">Contact</a></li>
+                </ul>
+              </div>
+      
+              <!-- Social Media Links -->
+              <div class="col-lg-3 col-md-6">
+                <h5 class="text-white">Connect with Us</h5>
+                <ul class="list-unstyled">
+                  <li><a href="#" target="_blank" class="text-white">Twitter <i href="" class="fa-brands fa-square-x-twitter"></i></a></li>
+                  <li><a href="#" target="_blank" class="text-white">LinkedIn <i href="" class="fa-brands fa-linkedin"></i></a></li>
+                  <li><a href="#" target="_blank" class="text-white">GitHub <i href="" class="fa-brands fa-github"></i></a></li>
+                  {% comment %} <li><a href="#" target="_blank" class="text-white">LinkedIn</a></li>
+                  <li><a href="#" target="_blank" class="text-white">GitHub</a></li>
+                  <li><a href="#" target="_blank" class="text-white">LinkedIn</a></li>
+                  <li><a href="#" target="_blank" class="text-white">GitHub</a></li> {% endcomment %}
+                  <!-- Add more social media links as needed -->
+                </ul>
+              </div>
+
+
+
+               <!-- Learning Resources -->
+               <div class="col-lg-3 col-md-6">
+                <h5 class="text-white">Learning Resouces</h5>
+                <ul class="list-unstyled">
+                  
+                  {% for roadmap in roadmaps  %}
+                  <li><a href="{% url 'courses:course' roadmap.slug %}" target="_blank" class="text-white">{{roadmap.title}}</a></li>
+                  {% endfor %}
+                    
+{% comment %}                   
+                  <li><a href="#" target="_blank" class="text-white">NetNinja</a></li>
+                  <li><a href="#" target="_blank" class="text-white">Web Dev Simplified</a></li>
+                  <li><a href="#" target="_blank" class="text-white">TestDriven.io</a></li>
+                  <li><a href="#" target="_blank" class="text-white">Geek for Geeks</a></li>
+                   {% endcomment %}
+                </ul>
+              </div>
+
+      
+              <!-- Copyright Information -->
+              <div class="col-lg-3">
+                <h5 class="text-white">© L-earn</h5>
+                <p class="text-white">All rights reserved - 2024.</p>
+                <p class="text-white">L-earn is a learing platform that curates roadmaps for tech skills unique to any individual preferences.</p>
               </div>
             </div>
-          </footer>
+          </div>
+        </footer>
+      
+
+
           
         <!-- <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">

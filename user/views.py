@@ -71,14 +71,16 @@ def profile(request):
 
 def profile_list(request):
     user = get_user_model()
-    all_user = user.objects.filter(score__score__gte=80)
+    all_user = user.objects.filter(passed=True, project=True)
+    # user_courses = UserScore.objects.filter(user=user.id, score__gte=80)
     context = {"all_users": all_user}
     return render(request, "user/profile_list.html", context)
 
 
 def profile_detail(request, username):
     profile = Profile.objects.get(user__username=username)
-    context = {"profile": profile}
+    projects = Project.objects.filter(owner=profile.user)
+    context = {"profile": profile, "projects": projects} 
     return render(request, "user/profile_detail.html", context)
     
 
@@ -97,10 +99,14 @@ def quiz_profile(request, pk):
     if request.method == 'POST':
         data = json.loads(request.body)
         score = int(data["user_score"])
+        if score >= 80:
+            user.passed=True 
+        else:
+            user.passed=False 
+        user.save()
         try:
-            user_score = UserScore.objects.get(user=user)
+            user_score = UserScore.objects.get(user=user, user_course=user_course)
             if user_score:
-                user_score.user_course=user_course
                 user_score.score = score 
                 user_score.save()
             

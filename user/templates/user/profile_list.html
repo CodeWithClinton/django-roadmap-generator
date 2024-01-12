@@ -14,8 +14,8 @@
  <header class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            <h1 class="display-4 fw-bolder">Meet our Talents!</h1>
+            <p class="lead fw-normal text-white-50 mb-0">"Discover the brilliance within our community! Meet our talents—passionate, skilled, and dedicated individuals shaping excellence in every endeavor."</p>
         </div>
     </div>
 </header>
@@ -37,7 +37,18 @@
             <div class="col-lg-4 mb-5">
                 <div class="card shadow border-0">
                     <div class="card-body p-4">
-                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">Tech</div>
+                        
+                        {% for u in user.score.all  %}
+                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{u.user_course.course.label}}</div>
+                        {% endfor %}
+                        
+
+
+            
+                        
+                        
+                            
+                        
                         <a class="text-decoration-none link-dark stretched-link" href="{% url 'auth:profile-detail' user.username  %}"><h5 class="card-title mb-3">{{user.profile.profession}}</h5></a>
                         <p class="card-text mb-0">{{user.profile.bio}}</p>
                     </div>
