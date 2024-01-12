@@ -1,0 +1,84 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+{% load socialaccount %}
+
+<link href="{% static 'css/users/auth.css' %}" rel="stylesheet" />
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    
+    {% if upt %}
+    <h3>Make some adjustment to your work!</h3>
+
+    {% else %}
+    <h3>Let's see your work!</h3>
+        
+    {% endif %}
+        
+    
+
+    
+    {% for field in form  %}
+
+    
+    {% if field.errors %}
+
+    <div class="mb-3">
+        <label for="" class="form-label">{{field.label}}</label>
+        {{field}}
+        <small>{{field.errors}}</small>
+    </div>
+        
+ 
+
+    {% else %}
+
+    
+    <div class="mb-3">
+        <label for="" class="form-label">{{field.label}}</label>
+        {{field}}
+    </div>
+
+
+    {% endif %}
+
+
+
+        
+        
+    {% endfor %}
+        
+
+    
+
+
+   
+    
+    {% if upt %}
+    <button class="btn btn-primary" style="width: 100%">Update project</button>
+
+    {% else %}
+    <button class="btn btn-primary" style="width: 100%">Add project</button>
+        
+    {% endif %}
+        
+    
+  
+   
+</form>
+
+    
+{% endblock content %}
+    

@@ -11,5 +11,6 @@ urlpatterns = [
     path("update-profile", views.update_profile, name="update-profile"),
     path("take-quiz/<int:pk>", views.quiz_profile, name="q-profile"),
     path("fetch_quiz", views.fetch_quiz, name="fetch-quiz"),
-    path("profiles", views.profile_list, name="profile-list")
+    path("profiles", views.profile_list, name="profile-list"),
+    path("profiles/<slug:username>", views.profile_detail, name='profile-detail')
 ]

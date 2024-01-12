@@ -6,6 +6,7 @@ from django.contrib import messages
 from courses.models import UserCourse, Quiz, QuizOption, UserScore
 from django.http import JsonResponse
 from .models import Profile
+from project.models import Project
 from django.contrib.auth import get_user_model
 import json
 # Create your views here.
@@ -62,8 +63,9 @@ def sign_out(request):
 def profile(request):
     user = request.user
     profile = Profile.objects.get(user=user)
+    projects = Project.objects.filter(owner=user)
     user_courses = UserCourse.objects.filter(user=user)
-    context = {"user": user, "u_courses": user_courses, "profile": profile}
+    context = {"user": user, "u_courses": user_courses, "profile": profile, "projects": projects}
     return render(request, "user/profile.html", context)
 
 
@@ -72,6 +74,13 @@ def profile_list(request):
     all_user = user.objects.filter(score__score__gte=80)
     context = {"all_users": all_user}
     return render(request, "user/profile_list.html", context)
+
+
+def profile_detail(request, username):
+    profile = Profile.objects.get(user__username=username)
+    context = {"profile": profile}
+    return render(request, "user/profile_detail.html", context)
+    
 
 
 @login_required(login_url='auth:register')

@@ -36,32 +36,7 @@
     }
 
     .social-link a{
-      color: #1e3050; 
-      text-decoration: none;
-    }
-    .project-actions{
-      width: 100%;
-      
-      display: flex;
-      align-items: center;
-      padding: 10px 10px 10px 10px;
-      justify-content: space-between;
-    }
-
-    .project-actions .rhs, .project-actions .lhs{
-      
-      display: flex;
-      align-items: center;
-      padding: 10px 10px 10px 10px;
-    }
-
-    .project-actions .fa-solid, .project-actions .fa-brands{
-      font-size: 25px;
-      color: #1e3050; 
-      margin: 0px 5px;
-    }
-
-    .project-actions a{
+      color: black;
       text-decoration: none;
     }
 
@@ -94,7 +69,7 @@
                       
                     
                     <div class="mt-3">
-                      <h4>~{{user.username}}</h4>
+                      <h4>~{{profile.user.username}}</h4>
                       <p class=" mb-1">{{profile.profession}}</p>
                       <p class="font-size-sm fw-bold">{{profile.first_name}} {{profile.last_name}}</p>
                       <p class="font-size-sm">{{profile.bio}}</p>
@@ -116,8 +91,13 @@
                         
                         
                       </div>
+                      
+                      {% if profile.user == request.user %}
                       <a href="{% url 'auth:update-profile' %}" class="btn btn-primary">Update</a>
                       <button class="btn btn-outline-primary">Message</button>
+                      {% endif %}
+                        
+                      
                     </div>
                   </div>
                 </div>
@@ -148,62 +128,13 @@
               </div>
             </div>
             <div class="col-md-8">
-
-            <div class="card mb-3">
-              <div class="card-body">
-                <div class="row">
-                  <p class="display-6">Projects</p>
-
-                  
-                  {% for project in projects %} 
-
-                  <div class="col-lg-6 mb-5">
-                    <div class="card h-100 shadow border-0">
-                        <img class="card-img-top" src="{{project.image.url}}" alt="..." />
-                        <div class="card-body p-4">
-                            {% comment %} <div class="badge bg-primary bg-gradient rounded-pill mb-2">Media</div> {% endcomment %}
-                            <a class="text-decoration-none link-dark streched-link" href=""><h5 class="card-title mb-3">{{project.title}}</h5></a>
-                            <p class="card-text mb-0">{{project.description | truncatechars:"200"}}</p>
-                        </div>
-                        
-                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-
-                          <div class="project-actions">
-                            <div class="rhs">
-                              <a class="fa-solid fa-pen-to-square" href="{% url 'project:update' project.slug %}"></a>
-                              {% comment %} <a class="fa-solid fa-trash-can-arrow-up"></a> {% endcomment %}
-                            </div>
-
-                            <div class="lhs">
-                              <a class="fa-solid fa-link" href="{{project.link}}" target="_blank"></a>
-                              <a class="fa-brands fa-github" href="{{project.github_link }}" target="_blank"></a>
-                            </div>
-
-                          </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                    
-                  {% endfor %}
-                    
-
-                  
-                </div>
-              </div>
-            </div>
-
-
-
-
-
               <div class="card mb-3">
                 <div class="card-body">
                    
                   <div class="row">
                     <p class="fs-4" style="font-weight:500px">Roadmap - Course(s)</p>
                     {% for u_course in u_courses %}
-                    {% comment %} <div class="col-lg-6 mb-5">
+                    <div class="col-lg-6 mb-5">
                         <div class="card h-100 shadow border-0" style>
                             <div class="card-img">
                                 <img src="{{u_course.course.thumbnail.url}}" alt="">
@@ -211,7 +142,7 @@
                             <div class="card-body p-4">
                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{u_course.course.label}}</div>
                                 <h5 class="card-title mb-3">{{u_course.course.title}}</h5>
-                                
+                                {% comment %} <p class="card-text mb-0">{{course.description|safe|truncatechars:"150"}}</p> {% endcomment %}
 
                                 <a href="{% url 'courses:course' u_course.course.slug %}" class="btn btn-primary">Regenerate Roadmap</a>
                                 <a href="{% url 'auth:q-profile' u_course.id  %}" class="btn btn-success">Take Quiz</a>
@@ -220,34 +151,7 @@
                             
                             
                         </div>
-                    </div> {% endcomment %}
-
-
-
-                    <div class="col-lg-6 mb-5">
-                      <div class="card h-100 shadow border-0">
-                          <img class="card-img-top" src="{{u_course.course.thumbnail.url}}" alt="..." />
-                          <div class="card-body p-4">
-                              <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{u_course.course.label}}</div>
-                              <h5 class="card-title mb-3">{{u_course.course.title}}</h5>
-                              <p class="card-text mb-0">{{u_course.course.description | safe  | truncatechars:"100"}}</p>
-                          </div>
-                          
-                          <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-  
-                            
-                              <a href="{% url 'courses:course' u_course.course.slug %}" class="btn btn-primary">Regenerate Roadmap</a>
-                                <a href="{% url 'auth:q-profile' u_course.id  %}" class="btn btn-success">Take Quiz</a>
-  
-                            
-                              
-                          </div>
-                      </div>
-                  </div>
-
-
-
-
+                    </div>
                     {% endfor %}
                         
                   </div>
