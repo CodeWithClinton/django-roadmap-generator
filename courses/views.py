@@ -1,19 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from decouple import config, Csv
 from openai import OpenAI
 from django.http import JsonResponse
-from .models import Course, Schedule, MiniSchedule, UserCourse, Roadmap, Quiz, QuizOption
+from .models import Course, Schedule, MiniSchedule, UserCourse, Roadmap, Quiz, QuizOption, Category
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from .forms import CourseAlertForm
+from django.contrib import messages
 import json
 
 client = OpenAI(api_key=config("OPENAI_API_KEY"),)
 
 # Create your views here.
 def index(request):
+    form = CourseAlertForm()
     courses = Course.objects.all()
     paginator = Paginator(courses, 3)
     page = request.GET.get("page")
+    
+    if request.method == 'POST':
+        form = CourseAlertForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Awesome, you will be alerted for upcoming courses")
+            return redirect("courses:index")
+    
     
     try:
         courses = paginator.page(page)
@@ -21,12 +32,13 @@ def index(request):
         courses = paginator.page(1)
     except EmptyPage:
         courses = paginator.page(paginator.num_pages)
-    context = {"courses": courses, "paginator":paginator}
+    context = {"courses": courses, "paginator":paginator, "form": form}
     return render(request, "courses/index.html", context)
 
 
 def detail(request, slug):
     course = Course.objects.get(slug=slug)
+    cat_courses = Course.objects.filter(category__title=course.category.title).exclude(id=course.id)
     user_course=""
     roadmap_num = 0
     if request.user.is_authenticated:
@@ -36,7 +48,7 @@ def detail(request, slug):
         except UserCourse.DoesNotExist:
             pass   
     schedules = Schedule.objects.all()
-    context = {"course":course, "schedules": schedules, "user_course":user_course, "r_num": roadmap_num}
+    context = {"course":course, "schedules": schedules, "user_course":user_course, "r_num": roadmap_num, "c_courses":cat_courses}
     return render(request, "courses/detail.html", context)
 
 

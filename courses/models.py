@@ -2,16 +2,31 @@ from django.db import models
 from django.conf import settings
 
 # Create your models here.
+class Category(models.Model):
+    title = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return self.title
+
+
 class Course(models.Model):
     title = models.CharField(max_length=50)
     slug = models.SlugField()
     description = models.TextField()
     thumbnail = models.ImageField(upload_to="img")
     label = models.CharField(max_length=25, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     
     def __str__(self):
         return self.title
 
+
+
+class CourseAlert(models.Model):
+    email = models.EmailField()
+    
+    def __str__(self):
+        return self.email
 
 class Schedule(models.Model):
     title = models.CharField(max_length=25)
@@ -19,7 +34,7 @@ class Schedule(models.Model):
     def __str__(self):
         return self.title 
     
-    
+        
 class MiniSchedule(models.Model):
     title = models.CharField(max_length=25)
     schedule =models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name="mini_schedule")

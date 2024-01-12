@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Course, Schedule, MiniSchedule, Roadmap, UserCourse, Quiz, QuizOption, UserScore
+from .models import (Course, Schedule, MiniSchedule, Roadmap, UserCourse, 
+                     Quiz, QuizOption, UserScore, Category, CourseAlert)
+
 
 
 # Register your models here.
@@ -17,3 +19,5 @@ admin.site.register(Roadmap)
 admin.site.register(Quiz)
 admin.site.register(QuizOption)
 admin.site.register(UserScore)
+admin.site.register(Category)
+admin.site.register(CourseAlert)
