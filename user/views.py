@@ -32,10 +32,24 @@ def sign_up(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Account created successfully")
-                return redirect("auth:index")
+                return redirect("courses:index")
             
     context = {"form": form}
     return render(request, "user/signup.html", context)
+
+
+def sign_in(request):
+    if request.method == 'POST':
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            # messages.success(request, "Account created successfully")
+            return redirect("courses:index")
+    context = {}
+    return render(request, "user/signin.html", context)
+    
 
 
 @login_required(login_url='auth:register')

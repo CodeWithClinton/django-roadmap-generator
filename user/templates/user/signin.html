@@ -1,0 +1,59 @@
+
+
+{% extends "base.html" %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+
+{% load socialaccount %}
+
+<link href="{% static 'css/users/auth.css' %}" rel="stylesheet" />
+
+
+<form action="" method="POST">
+
+    {% csrf_token %}
+     <h3>Welcome back</h3>
+
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label fw-bold">Email address:</label>
+            <input type="email" class="form-control" name="email" id="exampleFormControlInput1" placeholder="Enter email-address">
+            <!-- <small>username not available</small> -->
+        </div>
+
+  
+        <div class="mb-3">
+            <label for="exampleFormControlInput3" class="form-label fw-bold">Password:</label>
+            <input type="password" name="password" class="form-control" id="exampleFormControlInput3" placeholder="Enter password">
+        </div>
+
+    
+   
+
+   
+
+    <button class="btn btn-primary" style="width: 100%">login to your account</button>
+    <p style="text-align: center">Don't have an account? <a href="{% url 'auth:register' %}">Register</a></p>
+
+    <div class="plan_b">
+        <small style="font-weight: bold">OR</small>
+    </div>
+    <hr>
+
+    {% comment %} <button type="button" class="btn btn-outline-dark btn-lg" style="width: 100%"> {% endcomment %}
+        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-dark btn-lg" style="width: 100%">
+            <i class="fa-brands fa-google"></i>
+            <span>Continue with Google</span>
+        </a>
+       
+    {% comment %} </button> {% endcomment %}
+   
+</form>
+
+    
+{% endblock content %}
+    

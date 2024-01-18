@@ -4,8 +4,9 @@ from .import views
 app_name = 'auth'
 
 urlpatterns = [
-    path("index", views.index, name="index"),  
+
     path("register", views.sign_up, name="register"),
+    path("login", views.sign_in, name="signin"),
     path("logout", views.sign_out, name="logout"),
     path("profile", views.profile, name="profile"),
     path("update-profile", views.update_profile, name="update-profile"),
