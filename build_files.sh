@@ -1,5 +1,6 @@
 #!/bin/bash
 
 # Install Python
-apt-get update
+pip install -r requirements.txt
+
 
