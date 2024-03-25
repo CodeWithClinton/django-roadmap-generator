@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-(u2_(utb)_&3fqe%=g3&ah2iwf+%!$gs&hxwcr3v6evty-*0dx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["roadmap-n77r.onrender.com", "127.0.0.1", '.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 
 
