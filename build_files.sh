@@ -2,6 +2,7 @@
 # Build the project
 
 echo "Building the project..."
+sudo easy_install pip
 pip install -r requirements.txt
 
 # echo "Make Migration..."
