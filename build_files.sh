@@ -1,6 +1,5 @@
 #!/bin/bash
 
-pip install -r requirements.txt
-python manage.py collectstatic
-
+# Install Python
+apt-get update
 
