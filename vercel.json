@@ -21,7 +21,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "personalized_leaning/wsgi.py"
+      "dest": "personalized_learning/wsgi.py"
     }
   ]
 }
