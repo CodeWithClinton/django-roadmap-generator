@@ -26,7 +26,7 @@ def index(request):
             return redirect("courses:index")
     
     
-    try:
+    try:  
         courses = paginator.page(page)
     except PageNotAnInteger:
         courses = paginator.page(1)

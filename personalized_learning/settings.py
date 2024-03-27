@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-(u2_(utb)_&3fqe%=g3&ah2iwf+%!$gs&hxwcr3v6evty-*0dx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
+ALLOWED_HOSTS = ["roadmap-n77r.onrender.com", "127.0.0.1", "localhost"]
 
 
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # third-party apps
     'django.contrib.sites',
     'allauth',
@@ -116,23 +117,23 @@ WSGI_APPLICATION = 'personalized_learning.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ztebzkpb',
-        'USER': 'ztebzkpb',
-        'PASSWORD': '5oK7jHparJ6aQ2-8aKHwFkMcbx2_G8Hf',
-        'HOST': 'cornelius.db.elephantsql.com', 
-        'PORT': '5432',
-    }  
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ztebzkpb',
+#         'USER': 'ztebzkpb',
+#         'PASSWORD': '5oK7jHparJ6aQ2-8aKHwFkMcbx2_G8Hf',
+#         'HOST': 'cornelius.db.elephantsql.com', 
+#         'PORT': '5432',
+#     }  
+# }
 
 
 
