@@ -38,6 +38,7 @@ cd personalized_learning
 Obtain an API key from OpenAI by signing up at https://openai.com. <br>
 Once you have your API key, create a .env file in the root directory of the project. <br>
 Add your OpenAI API key to the .env file:
+
 ```bash
 OPENAI_API_KEY=your_openai_api_key
 ```
