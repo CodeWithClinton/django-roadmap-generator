@@ -15,5 +15,5 @@ Before running this application, ensure you have the following installed:
 1. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/django-roadmap-generator.git
+git clone https://github.com/CodeWithClinton/django-roadmap-generator.git
 
