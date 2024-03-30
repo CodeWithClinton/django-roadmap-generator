@@ -124,17 +124,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'ztebzkpb',
-#         'USER': 'ztebzkpb',
-#         'PASSWORD': '5oK7jHparJ6aQ2-8aKHwFkMcbx2_G8Hf',
-#         'HOST': 'cornelius.db.elephantsql.com', 
-#         'PORT': '5432',
-#     }  
-# }
-
 
 
 
