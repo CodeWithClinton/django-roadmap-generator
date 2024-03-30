@@ -42,6 +42,16 @@ Add your OpenAI API key to the .env file:
 ```bash
 OPENAI_API_KEY=your_openai_api_key
 ```
-   
 
+## Running the Application
+
+1. Apply Migrations
+```bash
+python manage.py migrate
+```
+
+2. Run Development Server
+```bash
+python manage.py runserver
+```
 
