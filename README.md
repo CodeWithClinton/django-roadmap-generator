@@ -1,4 +1,4 @@
-# Django Roadmap Generator
+# Roadmap Generator - Django + OpenAI
 
 This is a Django-based application that generates roadmaps using OpenAI's powerful language model.
 
