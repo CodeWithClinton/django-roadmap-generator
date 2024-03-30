@@ -18,7 +18,13 @@ Before running this application, ensure you have the following installed:
 git clone https://github.com/CodeWithClinton/django-roadmap-generator.git
 ```
 
-Navigate into the project directory:
+2. Create and activate your virtual environment
+   ```bash
+   pip install virtualenvwrapper-win
+   mkvirtualenv venv
+   ```
+   
+3. Navigate into the project directory:
 ```bash
 cd personalized_learning
 ```
