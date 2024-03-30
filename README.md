@@ -29,4 +29,15 @@ git clone https://github.com/CodeWithClinton/django-roadmap-generator.git
 cd personalized_learning
 ```
 
+4. Install dependencies:
+```bash
+   pip install -r requirements.txt
+```
+
+## Configuration
+Obtain an API key from OpenAI by signing up at https://openai.com.
+Once you have your API key, create a .env file in the root directory of the project.
+Add your OpenAI API key to the .env file:
+   
+
 
