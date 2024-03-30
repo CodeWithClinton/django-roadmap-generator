@@ -35,7 +35,7 @@ cd personalized_learning
 ```
 
 ## Configuration
-Obtain an API key from OpenAI by signing up at https://openai.com.
+Obtain an API key from OpenAI by signing up at https://openai.com. <br>
 Once you have your API key, create a .env file in the root directory of the project.
 Add your OpenAI API key to the .env file:
    
