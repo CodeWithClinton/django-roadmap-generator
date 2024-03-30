@@ -49,9 +49,8 @@ OPENAI_API_KEY=your_openai_api_key
 ```bash
 python manage.py migrate
 ```
-
 2. Run Development Server
 ```bash
 python manage.py runserver
 ```
-
+Visit http://127.0.0.1:8000/ in your web browser to access the application.
