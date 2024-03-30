@@ -18,6 +18,7 @@ Before running this application, ensure you have the following installed:
 git clone https://github.com/CodeWithClinton/django-roadmap-generator.git
 ```
 
+Navigate into the project directory:
 ```bash
 cd personalized_learning
 ```
